@@ -47,29 +47,32 @@ public class Main {
         ImageIcon chess = new ImageIcon(img1);
         //    chess=scaleImage(chess,50,50);
         JumpChess jlChess = new JumpChess(chess);
-        jlChess.setHorizontalAlignment(SwingConstants.LEFT);
-        jlChess.setVerticalAlignment(SwingConstants.TOP);
-        jlChess.setBounds(0, 250, chess.getIconWidth(), chess.getIconHeight());
         frame.setBounds(0, 0, 800, 600);
         panel.setBounds(0, 0, 800, 600);
-
-
         panel.add(jlChess);
+        Plat plat1=new Plat();
+        panel.add(plat1);
         frame.add(panel);
-
         frame.AddMousePressHandle();
         frame.AddKeyPressHandle();
         do{
+            System.out.println(frame.getTime());
             if(frame.getTime()>0) {
-                System.out.println("jump!!!");
+                System.out.println("Jump!!!");
                 jlChess.jump(frame.getTime());
                 frame.clear();
+                double x = Math.random();
+                int xDistance=(int)(x*200);
+                double y = Math.random();
+                int yDistance=(int)(y*200);
+                Plat nextOne =new Plat(jlChess.getX()+ plat1.getX()+xDistance,jlChess.getY()+jlChess.getHeight()-yDistance,plat1.getWidth(),plat1.getHeight());
+                panel.add(nextOne);
+                panel.repaint();
                 try {
                     sleep(3000);
                 } catch (InterruptedException e) {
                     System.out.println("Can't sleep!!!");
                 }
-
             }
         }while(true);
     }

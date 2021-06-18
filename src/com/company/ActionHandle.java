@@ -16,6 +16,7 @@ public class ActionHandle extends JFrame{
                 public void mouseReleased(MouseEvent e) {
                     end = Instant.now();
                     time= Duration.between(start,end).toMillis();
+                    System.out.println(time);
                 }
                 public void mouseExited(MouseEvent e) {}
                 public void mouseEntered(MouseEvent e) {}
@@ -35,6 +36,7 @@ public class ActionHandle extends JFrame{
                 {
                     end = Instant.now();
                     time= Duration.between(start,end).toMillis();
+                    System.out.println(time);
                 }
             }
             public void keyTyped(KeyEvent e) {}
