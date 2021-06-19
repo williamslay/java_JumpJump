@@ -61,10 +61,25 @@ public class Main {
                 System.out.println("Jump!!!");
                 jlChess.jump(frame.getTime());
                 frame.clear();
-                double x = Math.random();
-                int xDistance=(int)(x*200);
                 double y = Math.random();
-                int yDistance=(int)(y*200);
+                int yDistance,xDistance;
+                if(y>0.5)
+                {
+                    y = Math.random();
+                    yDistance=(int)(y*100);
+                }
+                else
+                {
+                    y = Math.random();
+                    yDistance=(int)(-1*y*100);
+                }
+                if(Math.abs(yDistance)>50)
+                {
+                    xDistance=(int)(1.5*Math.abs(yDistance));
+                }
+                else{
+                    xDistance=50+(int)(Math.random()*(300-50));
+                }
                 Plat nextOne =new Plat(jlChess.getX()+ plat1.getX()+xDistance,jlChess.getY()+jlChess.getHeight()-yDistance,plat1.getWidth(),plat1.getHeight());
                 panel.add(nextOne);
                 panel.repaint();
