@@ -8,7 +8,8 @@ import javax.swing.*;
 import static java.lang.Thread.sleep;
 
 public class Main {
-    public static ImageIcon scaleImage(ImageIcon icon, int w, int h) {
+    public static ImageIcon scaleImage(ImageIcon icon, int w, int h) //该函数用于按照比例拉伸ImageIcon
+    {
         int nw = icon.getIconWidth();
         int nh = icon.getIconHeight();
 
@@ -52,35 +53,25 @@ public class Main {
         panel.add(jlChess);
         Plat plat1=new Plat();
         panel.add(plat1);
+        plat1.Random();
+        Plat plat2=new Plat( (int)(plat1.getX()+plat1.xDistance),(int)(plat1.getY()- plat1.yDistance),plat1.getWidth(),plat1.getHeight());
+        panel.add(plat2);
         frame.add(panel);
         frame.AddMousePressHandle();
         frame.AddKeyPressHandle();
+        Plat thisOne=new Plat();
+        plat2.Asign(thisOne);
+        panel.add(thisOne);
+        panel.repaint();
         do{
             System.out.println(frame.getTime());
             if(frame.getTime()>0) {
                 System.out.println("Jump!!!");
                 jlChess.jump(frame.getTime());
                 frame.clear();
-                double y = Math.random();
-                int yDistance,xDistance;
-                if(y>0.5)
-                {
-                    y = Math.random();
-                    yDistance=(int)(y*100);
-                }
-                else
-                {
-                    y = Math.random();
-                    yDistance=(int)(-1*y*100);
-                }
-                if(Math.abs(yDistance)>50)
-                {
-                    xDistance=(int)(1.5*Math.abs(yDistance));
-                }
-                else{
-                    xDistance=50+(int)(Math.random()*(300-50));
-                }
-                Plat nextOne =new Plat(jlChess.getX()+ plat1.getX()+xDistance,jlChess.getY()+jlChess.getHeight()-yDistance,plat1.getWidth(),plat1.getHeight());
+                thisOne.Random();
+                Plat nextOne= new Plat( (int)(thisOne.getX()+thisOne.xDistance),(int)(thisOne.getY()- thisOne.yDistance),thisOne.getWidth(),thisOne.getHeight());
+                nextOne.Asign(thisOne);
                 panel.add(nextOne);
                 panel.repaint();
                 try {
