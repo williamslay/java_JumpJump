@@ -30,7 +30,7 @@ public class JumpChess extends JLabel
      *
      * @param time 从鼠标获取的时间
      */
-    public void jump(double time)
+    public void jump(double time,Plat plat)
     {
         //起跳的速度有点太快，可以考虑分段--HuaCL20210620 2222
         System.out.println("get it!!");
@@ -68,6 +68,10 @@ public class JumpChess extends JLabel
                 e.printStackTrace();
             }
             actionTime+=1;
+            if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==1)
+                break;
+            if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==2)
+                break;
             if(super.getY()>800)
                 break;
         }
