@@ -67,7 +67,7 @@ public class Main {
             System.out.println(frame.getTime());
             if(frame.getTime()>0) {
                 System.out.println("Jump!!!");
-                jlChess.jump(frame.getTime());
+                jlChess.jump(frame.getTime(),thisOne);
                 frame.clear();
                 thisOne.Random();
                 Plat nextOne= new Plat( (int)(thisOne.getX()+thisOne.xDistance),(int)(thisOne.getY()- thisOne.yDistance),thisOne.getWidth(),thisOne.getHeight());

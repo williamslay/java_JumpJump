@@ -52,4 +52,21 @@ public class Plat extends JLabel {
     {
         plat2.setLocation(this.getX(),this.getY());
     }
+    public int Judge(int chessX,int chessWidth, int chessY,int chessHeight)//判断碰撞函数
+    {
+        int platX=this.getX();
+        int platY=this.getY();
+        int platHeight=this.getHeight();
+        if(platY==chessY+chessHeight)
+        {
+            if(Math.abs(chessX-platX)<=0.5*chessWidth)
+                return 1;//跳到台上
+        }
+        else if(platY+platHeight==chessY)
+        {
+            if(Math.abs(chessX-platX)<=chessWidth)
+                return 2;//从底部碰撞到平台
+        }
+        return 0;//未碰撞到平台
+    }
 }
