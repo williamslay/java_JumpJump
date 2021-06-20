@@ -52,4 +52,8 @@ public class Plat extends JLabel {
     {
         plat2.setLocation(this.getX(),this.getY());
     }
+    public void Judge(JumpChess chess)//判断碰撞函数
+    {
+
+    }
 }
