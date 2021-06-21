@@ -68,7 +68,7 @@ public class Main {
         panel.repaint();
         double startTime=gameTime.recordTime();
         do{
-            System.out.println(frame.getTime());
+    //        System.out.println(frame.getTime());
             double TimeNow=gameTime.recordTime();
             gameTime.setGameTime(TimeNow-startTime);
             gameTime.timeChange(gameTime);
