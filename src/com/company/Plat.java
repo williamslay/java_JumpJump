@@ -6,7 +6,7 @@ import java.awt.*;
 public class Plat extends JLabel {
     double xDistance, yDistance;//下一个平台的距离
     public Plat(){
-       setBounds(0,300,70,20);
+       setBounds(0,200,70,20);
        setBackground(new Color(0,0,0));
        setOpaque(true);
        setVisible(true);
@@ -23,10 +23,21 @@ public class Plat extends JLabel {
         setVerticalAlignment(SwingConstants.TOP);
         updateUI();
         setAlignmentX(LEFT_ALIGNMENT);
-        setBounds(0,300,20,70);
+        setBounds(0,200,20,70);
         setVisible(true);
     }
-    public void Random()//生成下一个平台随机距离和高度
+
+    /**
+     * 生成下一个平台随机距离和高度
+     * 在这里我们对于三个不同的难度进行区分：
+     * 简单难度中间共生成4个平台
+     * 普通难度中间共生成5个平台
+     * 困难难度中间共生成6个平台
+     * @param platCountAll 生成的平台总个数
+     * @param platCountNow 现在正处于的平台数
+     * @param allWidth 总生成长度
+     */
+    public void Random()
     {
         double height=this.getHeight();
         double width=this.getWidth();
@@ -34,23 +45,23 @@ public class Plat extends JLabel {
             double y = Math.random();
             if(y>0.5)
             {
-                this.yDistance=height+Math.random()*100;
+                this.yDistance=height+Math.random()*30;
             }
             else
             {
-                this.yDistance=-1*(height+Math.random()*100);
+                this.yDistance=-1*(height+Math.random()*30);
             }
-        } while(this.getY()+this.yDistance>600||this.getY()+ this.yDistance<70);
+        } while(this.getY()+this.yDistance>400||this.getY()+ this.yDistance<70);
         if(Math.abs(this.yDistance)>50)
         {
             this.xDistance=1.5*Math.abs(this.yDistance);
-            if(this.getX()+this.xDistance+2*width>800)
-                this.xDistance=800-this.getX()-width;
+            if(this.getX()+this.xDistance+2*width>1000)
+                this.xDistance=1000-this.getX()-width;
         }
         else{
            this.xDistance=width+30+Math.random()*(170-width);
-            if(this.getX()+this.xDistance+2*width>800)
-                this.xDistance=800-this.getX()-width;
+            if(this.getX()+this.xDistance+2*width>1000)
+                this.xDistance=1000-this.getX()-width;
         }
     }
     public void Asign(Plat plat2)//将当前plat变量赋给另一个plat变量
@@ -65,9 +76,10 @@ public class Plat extends JLabel {
         int platY2=this.getY()+this.getHeight();
         int chessX2=chessX1+chessWidth;
         int chessY2=chessY1+chessHeight;
-        if((platY1<=chessY2+3)&&(platY1>=chessY2-3))
+        //if((platY1<=chessY2+3)&&(platY1>=chessY2-3))
+        if(platY1<=chessY2)//棋子底部碰到台子
         {
-            if(Math.abs(chessX1-platX1)<=0.5*chessWidth||Math.abs(chessX2-platX2)<=0.5*chessWidth||((chessX1>=platX1)&&(chessX2<=platX2)))
+            if(Math.abs(chessX1-platX1)<=0.6*chessWidth||Math.abs(chessX2-platX2)<=0.6*chessWidth||((chessX1>=platX1)&&(chessX2<=platX2)))
                 return 1;//跳到台上
             else if(Math.abs(chessX1-platX1)<=chessWidth||Math.abs(chessX2-platX2)<=chessWidth)
                 return 3;//跳到台上，但重心较远

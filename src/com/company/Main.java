@@ -47,8 +47,12 @@ public class Main {
         ImageIcon chess = new ImageIcon(img1);
         //    chess=scaleImage(chess,50,50);
         JumpChess jlChess = new JumpChess(chess);
-        frame.setBounds(0, 0, 800, 600);
-        panel.setBounds(0, 0, 800, 600);
+        frame.setBounds(0, 0, 1000, 400);
+        panel.setBounds(0, 0, 1000, 400);
+        //关卡开始
+//        //首先初始化一下平台的个数
+//        int platCountAll =4;
+//        int platCountNow=1;
         panel.add(jlChess);
         Plat plat1=new Plat();
         panel.add(plat1);
@@ -62,6 +66,7 @@ public class Main {
         plat2.Asign(thisOne);
         panel.add(thisOne);
         panel.repaint();
+
         //从此开始计时
         TimeCounter gameTime = new TimeCounter();
         panel.add(gameTime);
@@ -77,7 +82,7 @@ public class Main {
                 jlChess.jump(frame.getTime(),thisOne);
                 frame.clear();
                 thisOne.Random();
-                if(thisOne.getX()+thisOne.getWidth()+70>800)
+                if(thisOne.getX()+thisOne.getWidth()+70>1000)
                     break;
                 Plat nextOne= new Plat( (int)(thisOne.getX()+thisOne.xDistance),(int)(thisOne.getY()- thisOne.yDistance),thisOne.getWidth(),thisOne.getHeight());
                 nextOne.Asign(thisOne);
