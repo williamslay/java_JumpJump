@@ -29,14 +29,13 @@ public class Plat extends JLabel {
     public void Random()//生成下一个平台随机距离和高度
     {
         double y = Math.random();
+        double height=this.getHeight();
         if(y>0.5)
         {
-            double height=this.getHeight();
             this.yDistance=height+Math.random()*100;
         }
         else
         {
-            double height=this.getHeight();
             this.yDistance=-1*(height+Math.random()*100);
         }
         if(Math.abs(this.yDistance)>50)
@@ -45,26 +44,29 @@ public class Plat extends JLabel {
         }
         else{
             double width=this.getWidth();
-            this.xDistance=width+Math.random()*(200-width);
+           this.xDistance=width+Math.random()*(200-width);
         }
     }
     public void Asign(Plat plat2)//将当前plat变量赋给另一个plat变量
     {
         plat2.setLocation(this.getX(),this.getY());
     }
-    public int Judge(int chessX,int chessWidth, int chessY,int chessHeight)//判断碰撞函数
+    public int Judge(int chessX1,int chessWidth, int chessY1,int chessHeight)//判断碰撞函数
     {
-        int platX=this.getX();
-        int platY=this.getY();
-        int platHeight=this.getHeight();
-        if(platY==chessY+chessHeight)
+        int platX1=this.getX();
+        int platY1=this.getY();
+        int platX2=this.getX()+this.getWidth();
+        int platY2=this.getY()+this.getHeight();
+        int chessX2=chessX1+chessWidth;
+        int chessY2=chessY1+chessHeight;
+        if(platY1==chessY2)
         {
-            if(Math.abs(chessX-platX)<=0.5*chessWidth)
+            if(Math.abs(chessX1-platX1)<=0.5*chessWidth||Math.abs(chessX2-platX2)<=0.5*chessWidth||((chessX1>=platX1)&&(chessX2<=platX2)))
                 return 1;//跳到台上
         }
-        else if(platY+platHeight==chessY)
+        else if(platY2==chessY1)
         {
-            if(Math.abs(chessX-platX)<=chessWidth)
+            if(((chessX1>=platX1)&&(chessX1<=platX2))||((chessX2>=platX1)&&(chessX2<=platX2)))
                 return 2;//从底部碰撞到平台
         }
         return 0;//未碰撞到平台

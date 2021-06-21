@@ -35,11 +35,11 @@ public class JumpChess extends JLabel
         //起跳的速度有点太快，可以考虑分段--HuaCL20210620 2222
         System.out.println("get it!!");
         //横向速度（匀速运动）
-        double Vx=2;
+        double Vx=2.5;
         //纵向加速度（匀加速运动）
-        double Ay=0.1;
+        double Ay=0.15;
         //纵向速度（初始值可设定）
-        double Vy=5;
+        double Vy=0.01*time;
         //时间
         int actionTime=0;
         //初始位置
@@ -72,10 +72,10 @@ public class JumpChess extends JLabel
                 break;
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==2)
                 break;
-            if(super.getY()>800)
+            if(super.getY()>600)
                 break;
         }
-        setLocation(initialX + distance, initialY - distance);
+    //    setLocation(initialX + distance, initialY - distance);
     }
 }
 

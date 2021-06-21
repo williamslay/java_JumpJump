@@ -64,12 +64,13 @@ public class Main {
         panel.add(thisOne);
         panel.repaint();
         do{
-            System.out.println(frame.getTime());
+            System.out.println("");
             if(frame.getTime()>0) {
-                System.out.println("Jump!!!");
                 jlChess.jump(frame.getTime(),thisOne);
                 frame.clear();
                 thisOne.Random();
+                if(thisOne.getX()+thisOne.getWidth()+70>800)
+                    break;
                 Plat nextOne= new Plat( (int)(thisOne.getX()+thisOne.xDistance),(int)(thisOne.getY()- thisOne.yDistance),thisOne.getWidth(),thisOne.getHeight());
                 nextOne.Asign(thisOne);
                 panel.add(nextOne);
