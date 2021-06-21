@@ -28,23 +28,29 @@ public class Plat extends JLabel {
     }
     public void Random()//生成下一个平台随机距离和高度
     {
-        double y = Math.random();
         double height=this.getHeight();
-        if(y>0.5)
-        {
-            this.yDistance=height+Math.random()*100;
-        }
-        else
-        {
-            this.yDistance=-1*(height+Math.random()*100);
-        }
+        double width=this.getWidth();
+        do{
+            double y = Math.random();
+            if(y>0.5)
+            {
+                this.yDistance=height+Math.random()*100;
+            }
+            else
+            {
+                this.yDistance=-1*(height+Math.random()*100);
+            }
+        } while(this.getY()+this.yDistance>600||this.getY()+ this.yDistance<70);
         if(Math.abs(this.yDistance)>50)
         {
             this.xDistance=1.5*Math.abs(this.yDistance);
+            if(this.getX()+this.xDistance+2*width>800)
+                this.xDistance=800-this.getX()-width;
         }
         else{
-            double width=this.getWidth();
-           this.xDistance=width+Math.random()*(200-width);
+           this.xDistance=width+30+Math.random()*(170-width);
+            if(this.getX()+this.xDistance+2*width>800)
+                this.xDistance=800-this.getX()-width;
         }
     }
     public void Asign(Plat plat2)//将当前plat变量赋给另一个plat变量

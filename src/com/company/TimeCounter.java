@@ -1,44 +1,64 @@
 package com.company;
 
-import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
 
-public class TimeCounter
+public class TimeCounter extends JLabel
 {
-    //我们用一个ArrayList来存储从程序运行开始产生的所有游戏时间（注意多用户使用多个对象）
-    private ArrayList<Integer> GameTime = new ArrayList<>();
+    private double[] limitTime = new double[]{30.00,25.00,20.00};//关卡难度时间
+    private double gameTime;//单局游戏时间
+    private double[] minTime = new double[]{30.00,25.00,20.00};;//关卡难度最短时间
     //当前全部关卡，从1开始
     private int level = 0;
-
-    public void startNewTime()
+    public TimeCounter()
     {
-        int TimeNow = (int) System.currentTimeMillis();
-        GameTime.add(level * 2, TimeNow);
-        level++;
+        setBounds(650,0,150,40);
+        double limitTime=getLimitTime(1);
+        double gameTime=0;
+        double minTime=getMinTime(1);
+        setFont(new Font("Times New Roman",Font.BOLD,15));
+        setText("<html>倒计时："+String.format("%.2f", limitTime-gameTime)+"秒<br/>最快纪录："+String.format("%.2f", minTime)+"秒</html>");
+        setForeground(Color.black);
+        setVisible(true);
     }
 
-    public void endTime()
+     public double getLimitTime(int level)
+     {
+         return limitTime[level-1];
+     }
+    public double getGameTime()
     {
-        int TimeNow = (int) System.currentTimeMillis();
-        GameTime.add(level * 2 + 1, TimeNow);
+        return gameTime;
     }
-
-    public int getTimeUsed_int()
+    public double getMinTime(int level)
     {
-        return GameTime.get(level * 2 + 1) - GameTime.get(level * 2);
+        return minTime[level-1];
     }
-
-    /**
-     *
-     * @param level 指定回合的所用时间返回
-     * @return 返回int格式的秒数（单位毫秒）
-     */
-    public int getTimeUsed_int(int level)
+    public void setLimitTime(int level,double time)
     {
-        return GameTime.get(level * 2 + 1) - GameTime.get(level * 2);
+        this.limitTime[level-1]=time;
     }
-
-//    public String getTimeUsed_String()
-//    {
-//        ;
-//    }
+    public void setMinTime(int level,double time)
+    {
+        this.minTime[level-1]=time;
+    }
+    public void setGameTime(double time)
+    {
+        this.gameTime=time;
+    }
+    public double recordTime()
+    {
+        long TimeNow =System.currentTimeMillis();
+        double Time=(double)(TimeNow/1000.0);
+        return Time;
+    }
+    public void timeChange (TimeCounter timeCounter)
+    {
+        double limitTime=getLimitTime(1);
+        double minTime=getMinTime(1);
+        timeCounter.setFont(new Font("Times New Roman",Font.BOLD,15));
+        timeCounter.setText("<html>倒计时："+String.format("%.2f", (limitTime-gameTime))+"秒<br/>最快纪录："+String.format("%.2f", minTime)+"秒</html>");
+        timeCounter.setForeground(Color.black);
+    }
 }
+

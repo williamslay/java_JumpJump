@@ -63,9 +63,16 @@ public class Main {
         panel.add(thisOne);
         panel.repaint();
         //从此开始计时
-
+        TimeCounter gameTime = new TimeCounter();
+        panel.add(gameTime);
+        panel.repaint();
+        double startTime=gameTime.recordTime();
         do{
             System.out.println(frame.getTime());
+            double TimeNow=gameTime.recordTime();
+            gameTime.setGameTime(TimeNow-startTime);
+            gameTime.timeChange(gameTime);
+            panel.repaint();
             if(frame.getTime()>0) {
                 jlChess.jump(frame.getTime(),thisOne);
                 frame.clear();
@@ -76,11 +83,11 @@ public class Main {
                 nextOne.Asign(thisOne);
                 panel.add(nextOne);
                 panel.repaint();
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    System.out.println("Can't sleep!!!");
-                }
+//                try {
+//                    sleep(100);
+//                } catch (InterruptedException e) {
+//                    System.out.println("Can't sleep!!!");
+//                }
             }
         }while(true);
 
