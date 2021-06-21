@@ -34,7 +34,7 @@ public class Main {
 
 
         //创建面板
-        JPanel  panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setBackground(new Color(250, 250, 250));
         panel.setLayout(null);
 
@@ -63,6 +63,8 @@ public class Main {
         plat2.Asign(thisOne);
         panel.add(thisOne);
         panel.repaint();
+        //从此开始计时
+
         do{
             System.out.println(frame.getTime());
             if(frame.getTime()>0) {
