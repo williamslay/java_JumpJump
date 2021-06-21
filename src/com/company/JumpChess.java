@@ -3,8 +3,6 @@ package com.company;
 
 import javax.swing.*;
 
-import java.awt.*;
-
 import static java.lang.Thread.sleep;
 
 public class JumpChess extends JLabel
@@ -35,15 +33,15 @@ public class JumpChess extends JLabel
         //起跳的速度有点太快，可以考虑分段--HuaCL20210620 2222
         System.out.println("get it!!");
         //横向速度（匀速运动,初始值和鼠标按压时间成正比）
-        double Vx=0.5+MouseTime*0.01;
+        double Vx=0.7+MouseTime*0.05;
         //纵向加速度（匀加速运动）
-        double Ay=-0.05;
+        double Ay=-0.1;
         //纵向速度（初始值和鼠标按压时间成正比）
-        double Vy=0.1+MouseTime*0.01;
+        double Vy=0.5+MouseTime*0.01;
         //时间
         int actionTime=0;
         //系数，用于将动画更加精细化，10即为/10显示
-        int Multiplayer=20;
+        int Multiplayer=100;
         //单位时间，用于控制移动速度
         //double standardGapTime=0.5;
         //初始位置
