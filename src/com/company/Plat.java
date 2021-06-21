@@ -32,11 +32,11 @@ public class Plat extends JLabel {
         double height=this.getHeight();
         if(y>0.5)
         {
-            this.yDistance=height+Math.random()*100;
+            this.yDistance=height+Math.random()*50;
         }
         else
         {
-            this.yDistance=-1*(height+Math.random()*100);
+            this.yDistance=-1*(height+Math.random()*50);
         }
         if(Math.abs(this.yDistance)>50)
         {
@@ -51,6 +51,15 @@ public class Plat extends JLabel {
     {
         plat2.setLocation(this.getX(),this.getY());
     }
+
+    /**
+     * 碰撞判断
+     * @param chessX1
+     * @param chessWidth
+     * @param chessY1
+     * @param chessHeight
+     * @return
+     */
     public int Judge(int chessX1,int chessWidth, int chessY1,int chessHeight)//判断碰撞函数
     {
         int platX1=this.getX();

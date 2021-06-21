@@ -28,20 +28,24 @@ public class JumpChess extends JLabel
     /**
      * 跳跃函数，对于跳跃函数，我们
      *
-     * @param time 从鼠标获取的时间
+     * @param MouseTime 从鼠标获取的时间
      */
-    public void jump(double time,Plat plat)
+    public void jump(double MouseTime,Plat plat)
     {
         //起跳的速度有点太快，可以考虑分段--HuaCL20210620 2222
         System.out.println("get it!!");
-        //横向速度（匀速运动）
-        double Vx=2.5;
+        //横向速度（匀速运动,初始值和鼠标按压时间成正比）
+        double Vx=0.5+MouseTime*0.01;
         //纵向加速度（匀加速运动）
-        double Ay=0.15;
-        //纵向速度（初始值可设定）
-        double Vy=0.01*time;
+        double Ay=-0.05;
+        //纵向速度（初始值和鼠标按压时间成正比）
+        double Vy=0.1+MouseTime*0.01;
         //时间
         int actionTime=0;
+        //系数，用于将动画更加精细化，10即为/10显示
+        int Multiplayer=20;
+        //单位时间，用于控制移动速度
+        //double standardGapTime=0.5;
         //初始位置
         int initialX,initialY;
         initialX=super.getX();
@@ -52,25 +56,26 @@ public class JumpChess extends JLabel
 
         System.out.println(super.getX()+"   "+super.getY());
 
-        int distance = (int) time / 20;
+        int distance = (int) MouseTime / 20;
         //通过不停的刷新棋子的位置实现动画
         while(true)
         {
-            setLocation((int)(initialX + Vx*actionTime),
-                    (int)(initialY - Vy*actionTime+0.5*Ay*actionTime*actionTime));
+            setLocation((int)(initialX + (Vx*actionTime)/Multiplayer),
+                    (int)(initialY - (Vy*actionTime+0.5*Ay*actionTime*actionTime)/Multiplayer));
             System.out.println("position:("+super.getX()+","+super.getY()+")");
             System.out.println("speed:("+Vx+","+Vy+Vy*actionTime+")");
             try
             {
-                sleep(5);
+                sleep(1);
             } catch (InterruptedException e)
             {
                 e.printStackTrace();
             }
             actionTime+=1;
+            //actionTime+=standardGapTime;
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==1)
             {
-                setLocation((int)(initialX + Vx*actionTime), plat.getY()-this.getHeight());
+                //setLocation((int)(initialX + Vx*actionTime), plat.getY()-this.getHeight());
                 break;
             }
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==2)

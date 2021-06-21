@@ -63,7 +63,7 @@ public class Main {
         panel.add(thisOne);
         panel.repaint();
         do{
-            System.out.println(frame.getTime());
+            System.out.print(frame.getTime());
             if(frame.getTime()>0) {
                 jlChess.jump(frame.getTime(),thisOne);
                 frame.clear();
