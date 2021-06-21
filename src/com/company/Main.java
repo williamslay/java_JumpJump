@@ -32,7 +32,6 @@ public class Main {
         frame.setVisible(true);
         frame.setResizable(false);//固定大小
 
-
         //创建面板
         JPanel  panel = new JPanel();
         panel.setBackground(new Color(250, 250, 250));
@@ -64,7 +63,7 @@ public class Main {
         panel.add(thisOne);
         panel.repaint();
         do{
-            System.out.println("");
+            System.out.println(frame.getTime());
             if(frame.getTime()>0) {
                 jlChess.jump(frame.getTime(),thisOne);
                 frame.clear();
@@ -76,11 +75,12 @@ public class Main {
                 panel.add(nextOne);
                 panel.repaint();
                 try {
-                    sleep(3000);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     System.out.println("Can't sleep!!!");
                 }
             }
         }while(true);
+
     }
 }

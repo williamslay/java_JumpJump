@@ -69,8 +69,13 @@ public class JumpChess extends JLabel
             }
             actionTime+=1;
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==1)
+            {
+                setLocation((int)(initialX + Vx*actionTime), plat.getY()-this.getHeight());
                 break;
+            }
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==2)
+                break;
+            if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==3)
                 break;
             if(super.getY()>600)
                 break;

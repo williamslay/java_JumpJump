@@ -59,12 +59,14 @@ public class Plat extends JLabel {
         int platY2=this.getY()+this.getHeight();
         int chessX2=chessX1+chessWidth;
         int chessY2=chessY1+chessHeight;
-        if(platY1==chessY2)
+        if((platY1<=chessY2+3)&&(platY1>=chessY2-3))
         {
             if(Math.abs(chessX1-platX1)<=0.5*chessWidth||Math.abs(chessX2-platX2)<=0.5*chessWidth||((chessX1>=platX1)&&(chessX2<=platX2)))
                 return 1;//跳到台上
+            else if(Math.abs(chessX1-platX1)<=chessWidth||Math.abs(chessX2-platX2)<=chessWidth)
+                return 3;//跳到台上，但重心较远
         }
-        else if(platY2==chessY1)
+        else if((platY2<=chessY1+2)&&(platY2>=chessY1-2))
         {
             if(((chessX1>=platX1)&&(chessX1<=platX2))||((chessX2>=platX1)&&(chessX2<=platX2)))
                 return 2;//从底部碰撞到平台
