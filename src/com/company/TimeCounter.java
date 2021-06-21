@@ -12,7 +12,7 @@ public class TimeCounter extends JLabel
     private int level = 0;
     public TimeCounter()
     {
-        setBounds(650,0,150,40);
+        setBounds(850,0,150,40);
         double limitTime=getLimitTime(1);
         double gameTime=0;
         double minTime=getMinTime(1);

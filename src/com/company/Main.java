@@ -26,6 +26,9 @@ public class Main {
         return icon;
     }
     public static void main(String[] args) {
+        //游戏关卡的设置
+        int level=1;//游戏关卡难度，1,2,3分别为简单，中等，困难
+        int pass=0;//本局游戏通关情况，0为未通关，1为通关
         //创建窗口
         ActionHandle frame = new  ActionHandle();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,8 +50,12 @@ public class Main {
         ImageIcon chess = new ImageIcon(img1);
         //    chess=scaleImage(chess,50,50);
         JumpChess jlChess = new JumpChess(chess);
-        frame.setBounds(0, 0, 800, 600);
-        panel.setBounds(0, 0, 800, 600);
+        frame.setBounds(0, 0, 1000, 400);
+        panel.setBounds(0, 0, 1000, 400);
+        //关卡开始
+//        //首先初始化一下平台的个数
+//        int platCountAll =4;
+//        int platCountNow=1;
         panel.add(jlChess);
         Plat plat1=new Plat();
         panel.add(plat1);
@@ -62,23 +69,38 @@ public class Main {
         plat2.Asign(thisOne);
         panel.add(thisOne);
         panel.repaint();
+
         //从此开始计时
         TimeCounter gameTime = new TimeCounter();
         panel.add(gameTime);
         panel.repaint();
         double startTime=gameTime.recordTime();
+        gameTime.setMinTime(level,gameTime.getGameTime());
         do{
-    //        System.out.println(frame.getTime());
+            //System.out.println(frame.getTime());
             double TimeNow=gameTime.recordTime();
             gameTime.setGameTime(TimeNow-startTime);
+            if(gameTime.getGameTime()==gameTime.getLimitTime(level))
+            {
+                pass=0;
+                break;
+            }
             gameTime.timeChange(gameTime);
             panel.repaint();
             if(frame.getTime()>0) {
                 jlChess.jump(frame.getTime(),thisOne);
+                if(jlChess.getState()==2)
+                {
+                    pass=0;
+                    break;
+                }
                 frame.clear();
                 thisOne.Random();
-                if(thisOne.getX()+thisOne.getWidth()+70>800)
+                if(thisOne.getX()+thisOne.getWidth()+70>1000)
+                {
+                    pass=1;
                     break;
+                }
                 Plat nextOne= new Plat( (int)(thisOne.getX()+thisOne.xDistance),(int)(thisOne.getY()- thisOne.yDistance),thisOne.getWidth(),thisOne.getHeight());
                 nextOne.Asign(thisOne);
                 panel.add(nextOne);
@@ -90,6 +112,38 @@ public class Main {
 //                }
             }
         }while(true);
-
+        JLabel result=new JLabel();
+        result.setBounds(450,0,200,40);
+        result.setFont(new Font("Times New Roman",Font.BOLD,20));
+        result.setForeground(Color.black);
+        result.setVisible(true);
+        panel.add(result);
+        //添加再玩一次和玩下一模式的按钮
+        JButton playAgain=new JButton();
+        JButton playNextModel=new JButton();
+        if(pass==0)//未通关
+        {
+            result.setText("You Lose!");
+            result.setForeground(Color.black);
+            panel.repaint();
+        }
+        else  if(pass==1)//通关
+        {
+            result.setText("You Win!");
+            result.setForeground(Color.black);
+            panel.repaint();
+            if(gameTime.getGameTime()<=gameTime.getMinTime(level))//刷新纪录
+            {
+                JLabel congratulation=new JLabel();
+                congratulation.setBounds(275,50,500,40);
+                congratulation.setFont(new Font("Times New Roman",Font.BOLD,20));
+                congratulation.setForeground(Color.black);
+                congratulation.setVisible(true);
+                congratulation.setText("Congratulations!!! You have break your order!!!");
+                congratulation.setForeground(Color.black);
+                panel.add(congratulation);
+                panel.repaint();
+            }
+        }
     }
 }
