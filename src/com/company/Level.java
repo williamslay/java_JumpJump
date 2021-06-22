@@ -1,8 +1,6 @@
 package com.company;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -15,16 +13,15 @@ public class Level extends JFrame{
     public static Instant end;
     public static double pressTime;//按压时间
     //游戏关卡的设置
-    private int level=1;//游戏关卡难度，1,2,3分别为简单，中等，困难
-    private int pass=0;//本局游戏通关情况，0为未通关，1为通关
-    private double[] minTime = new double[]{30.00,25.00,20.00};;//关卡难度最短时间
-    public Level(int level)
+    private int level;//游戏关卡难度，1,2,3分别为简单，中等，困难
+    private int pass;//本局游戏通关情况，0为未通关，1为通关
+
+    public Level(int level1)
     {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLevel(level1);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         setResizable(false);//固定大小
-
-        repaint();
         //创建面板
         JPanel panel = new JPanel();
         panel.setBackground(new Color(250, 250, 250));
@@ -67,7 +64,7 @@ public class Level extends JFrame{
             //System.out.println(frame.getTime());
             double TimeNow=gameTime.recordTime();
             gameTime.setGameTime(TimeNow-startTime);
-            if(gameTime.getGameTime()==gameTime.getLimitTime(level))//如果超时，则游戏失败
+            if(gameTime.getGameTime()==gameTime.getLimitTime(this.level))//如果超时，则游戏失败
             {
                 pass=0;
                 break;
@@ -102,11 +99,11 @@ public class Level extends JFrame{
         panel.add(result);
         //添加再玩一次和玩下一模式的按钮
         JButton playAgain=new JButton("Play Again");
-        JButton playNextModel=new JButton("Play Next Model");
+        JButton playNextMode=new JButton("Play Next Model");
         playAgain.setBounds(800,60,140,30);
-        playNextModel.setBounds(800,100,140,30);
+        playNextMode.setBounds(800,100,140,30);
         panel.add(playAgain);
-        panel.add(playNextModel);
+        panel.add(playNextMode);
         if(pass==0)//未通关
         {
             result.setText("You Lose!");
@@ -118,9 +115,9 @@ public class Level extends JFrame{
             result.setText("You Win!");
             result.setForeground(Color.black);
             panel.repaint();
-            if(gameTime.getGameTime()<=getMinTime(level))//刷新纪录
+            if(gameTime.getGameTime()<=Main.getMinTime(level))//刷新纪录
             {
-                setMinTime(level,gameTime.getGameTime());
+                Main.setMinTime(level,gameTime.getGameTime());
                 JLabel congratulation=new JLabel();
                 congratulation.setBounds(275,50,500,40);
                 congratulation.setFont(new Font("Times New Roman",Font.BOLD,20));
@@ -132,31 +129,38 @@ public class Level extends JFrame{
                 panel.repaint();
             }
         }
-        final boolean[] flag = {false};
-        System.out.println("flag");
 
         playAgain.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                flag[0] =true;
-                System.out.println("233");
-
-
-
-
-                //System.exit(0);
-                // return;
-
+                int level=getLevel();
+                System.out.println(level);
                playGame(getLevel());
             }
         });
-//        if(flag[0])
-//        {
-//            System.out.println("if");
-//
-//            System.exit(0);
-//        }
+        playNextMode.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                int level=getLevel();
+                System.out.println(level);
+                if(level<3)
+                playGame(++level);
+                else
+                {
+                    JLabel NoMore=new JLabel();
+                    NoMore.setBounds(380,50,250,40);
+                    NoMore.setFont(new Font("Times New Roman",Font.BOLD,20));
+                    NoMore.setForeground(Color.black);
+                    NoMore.setVisible(true);
+                    panel.add(NoMore);
+                    NoMore.setText("There is no more for you!!!");
+                    NoMore.setForeground(Color.black);
+                    NoMore.repaint();
+                }
+            }
+        });
     }
     public void AddMousePressHandle(){
             super.addMouseListener(new MouseListener() {
@@ -202,38 +206,19 @@ public class Level extends JFrame{
     {
         return level;
     }
-    public double getMinTime(int level)
+    public void setLevel(int level1)
     {
-        return minTime[level-1];
+        level=level1;
     }
-    public void setMinTime(int level,double time)
+    public void playGame(int level1)
     {
-        this.minTime[level-1]=time;
-    }
-    public void playGame(int level)
-    {
-        System.out.println(level);
         this.clearPressTime();
         this.dispose();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Level newFrame = new Level(1);
+                Level newFrame = new Level(level1);
             }
         }).start();
-
-        //Level newFrame = new Level(3);
-
-
-//        JPanel panel = new JPanel();
-//        panel.setBackground(new Color(0,0,0));
-//        panel.setLayout(null);
-//        panel.setBounds(0, 0, 1000, 400);
-//        this.removeAll();
-//        this.repaint();
-//        this.add(panel);
-//        this.revalidate();
-//        this.repaint();
     }
 }
