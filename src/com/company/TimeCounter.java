@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class TimeCounter extends JLabel
 {
-    private double[] limitTime = new double[]{30.00,25.00,5.00};//关卡难度时间
+    private double[] limitTime = new double[]{30.00,25.00,20.00};//关卡难度时间
     private double gameTime;//单局游戏时间
     //当前全部关卡，从1开始
     private int level = 0;

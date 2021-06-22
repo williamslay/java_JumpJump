@@ -17,7 +17,7 @@ public class Level extends JFrame{
     //游戏关卡的设置
     private int level=1;//游戏关卡难度，1,2,3分别为简单，中等，困难
     private int pass=0;//本局游戏通关情况，0为未通关，1为通关
-    private double[] minTime = new double[]{30.00,25.00,5.00};;//关卡难度最短时间
+    private double[] minTime = new double[]{30.00,25.00,20.00};;//关卡难度最短时间
     public Level(int level)
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -219,7 +219,7 @@ public class Level extends JFrame{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Level newFrame = new Level(3);
+                Level newFrame = new Level(1);
             }
         }).start();
 
