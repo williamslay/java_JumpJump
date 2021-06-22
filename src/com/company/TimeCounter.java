@@ -12,12 +12,12 @@ public class TimeCounter extends JLabel
     private int level = 0;
     public TimeCounter()
     {
-        setBounds(850,0,150,40);
+        setBounds(800,0,200,40);
         double limitTime=getLimitTime(1);
         double gameTime=0;
         double minTime=getMinTime(1);
         setFont(new Font("Times New Roman",Font.BOLD,15));
-        setText("<html>倒计时："+String.format("%.2f", limitTime-gameTime)+"秒<br/>最快纪录："+String.format("%.2f", minTime)+"秒</html>");
+        setText("<html>Count Down："+String.format("%.2f", limitTime-gameTime)+"秒<br/>Fastest Record："+String.format("%.2f", minTime)+"秒</html>");
         setForeground(Color.black);
         setVisible(true);
     }
@@ -57,7 +57,7 @@ public class TimeCounter extends JLabel
         double limitTime=getLimitTime(1);
         double minTime=getMinTime(1);
         timeCounter.setFont(new Font("Times New Roman",Font.BOLD,15));
-        timeCounter.setText("<html>倒计时："+String.format("%.2f", (limitTime-gameTime))+"秒<br/>最快纪录："+String.format("%.2f", minTime)+"秒</html>");
+        timeCounter.setText("<html>Count Down："+String.format("%.2f", (limitTime-gameTime))+"秒<br/>Fastest Record："+String.format("%.2f", minTime)+"秒</html>");
         timeCounter.setForeground(Color.black);
     }
 }

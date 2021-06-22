@@ -119,8 +119,12 @@ public class Main {
         result.setVisible(true);
         panel.add(result);
         //添加再玩一次和玩下一模式的按钮
-        JButton playAgain=new JButton();
-        JButton playNextModel=new JButton();
+        JButton playAgain=new JButton("Play Again");
+        JButton playNextModel=new JButton("Play Next Model");
+        playAgain.setBounds(800,60,140,30);
+        playNextModel.setBounds(800,100,140,30);
+        panel.add(playAgain);
+        panel.add(playNextModel);
         if(pass==0)//未通关
         {
             result.setText("You Lose!");
@@ -139,11 +143,12 @@ public class Main {
                 congratulation.setFont(new Font("Times New Roman",Font.BOLD,20));
                 congratulation.setForeground(Color.black);
                 congratulation.setVisible(true);
-                congratulation.setText("Congratulations!!! You have break your order!!!");
+                congratulation.setText("Congratulations!!! You have break your record!!!");
                 congratulation.setForeground(Color.black);
                 panel.add(congratulation);
                 panel.repaint();
             }
         }
+
     }
 }

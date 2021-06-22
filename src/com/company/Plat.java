@@ -27,7 +27,7 @@ public class Plat extends JLabel {
         setVisible(true);
     }
 
-    
+
     public void Random()
     {
         double height=this.getHeight();
