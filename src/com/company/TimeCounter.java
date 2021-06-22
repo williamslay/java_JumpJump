@@ -8,13 +8,12 @@ public class TimeCounter extends JLabel
     private double[] limitTime = new double[]{30.00,25.00,20.00};//关卡难度时间
     private double gameTime;//单局游戏时间
     //当前全部关卡，从1开始
-    private int level = 0;
     public TimeCounter(Level level)
     {
         setBounds(800,0,200,40);
         double limitTime=getLimitTime(1);
         double gameTime=0;
-        double minTime=level.getMinTime(level.getLevel());
+        double minTime=Main.getMinTime(level.getLevel());
         setFont(new Font("Times New Roman",Font.BOLD,15));
         setText("<html>Count Down："+String.format("%.2f", limitTime-gameTime)+"秒<br/>Fastest Record："+String.format("%.2f", minTime)+"秒</html>");
         setForeground(Color.black);
@@ -46,7 +45,7 @@ public class TimeCounter extends JLabel
     public void timeChange (Level level)
     {
         double limitTime=getLimitTime(1);
-        double minTime=level.getMinTime(level.getLevel());
+        double minTime=Main.getMinTime(level.getLevel());
         setFont(new Font("Times New Roman",Font.BOLD,15));
         setText("<html>Count Down："+String.format("%.2f", (limitTime-gameTime))+"秒<br/>Fastest Record："+String.format("%.2f", minTime)+"秒</html>");
         setForeground(Color.black);
