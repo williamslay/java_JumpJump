@@ -59,7 +59,8 @@ public class Plat extends JLabel {
     {
         plat2.setLocation(this.getX(),this.getY());
     }
-    public int Judge(int chessX1,int chessWidth, int chessY1,int chessHeight)//判断碰撞函数
+    public int Judge(int
+                             chessX1,int chessWidth, int chessY1,int chessHeight)//判断碰撞函数
     {
         int platX1=this.getX();
         int platY1=this.getY();
@@ -68,7 +69,8 @@ public class Plat extends JLabel {
         int chessX2=chessX1+chessWidth;
         int chessY2=chessY1+chessHeight;
         //if((platY1<=chessY2+3)&&(platY1>=chessY2-3))
-        if(platY1<=chessY2)//棋子底部碰到台子
+        //棋子底部碰到台子,我们设置一个冗余度3
+        if(0<=chessY2-platY1&&chessY2-platY1<=3)
         {
             if(Math.abs(chessX1-platX1)<=0.6*chessWidth||Math.abs(chessX2-platX2)<=0.6*chessWidth||((chessX1>=platX1)&&(chessX2<=platX2)))
                 return 1;//跳到台上

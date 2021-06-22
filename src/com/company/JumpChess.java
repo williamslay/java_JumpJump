@@ -3,6 +3,8 @@ package com.company;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static java.lang.Thread.sleep;
 
 public class JumpChess extends JLabel
@@ -10,6 +12,7 @@ public class JumpChess extends JLabel
     private int state=1;//棋子存活状态，其中1为存活，2为死亡
     public JumpChess(Icon image)
     {
+        //棋子初始化在左侧
         this(null, image);
         setBounds(0, 150, image.getIconWidth(), image.getIconHeight());
     }
@@ -28,6 +31,7 @@ public class JumpChess extends JLabel
      * 跳跃函数，对于跳跃函数，我们
      *
      * @param MouseTime 从鼠标获取的时间
+     * @param plat 平台参数，方便确定碰撞
      */
     public void jump(double MouseTime,Plat plat)
     {
@@ -70,22 +74,35 @@ public class JumpChess extends JLabel
             }
             actionTime+=1;
             //actionTime+=standardGapTime;
+            //Judge返回1，表示正确跳到台上，设定状态为1，继续游戏
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==1)
             {
-                //setLocation((int)(initialX + Vx*actionTime), plat.getY()-this.getHeight());
                 this.state=1;
                 break;
             }
+            //Judge返回2，表示跳到台上,但是重心较远，设定状态为2，游戏失败
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==2)
             {
                 this.state=2;
+
+                Graphics2D rotateChess=(Graphics2D)this.getIcon();
+                rotateChess.rotate(Math.toRadians(90));
+                super.paintComponent(rotateChess);
+
                 break;
             }
+            //Judge返回3，表示跳到台上,但是重心较远，设定状态为2，游戏失败
             if(plat.Judge(this.getX(),this.getWidth(),this.getY(),this.getHeight())==3)
             {
                 this.state=2;
+
+                Graphics2D rotateChess=(Graphics2D)this.getIcon();
+                rotateChess.rotate(Math.toRadians(90));
+                super.paintComponent(rotateChess);
+
                 break;
             }
+            //棋子飞出游戏区域外都没有出发碰撞，设定状态为2，游戏失败
             if(super.getY()>400)
             {
                 this.state=2;
