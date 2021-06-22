@@ -71,7 +71,6 @@ public class Main {
                         Level frame = new Level(1);
                     }
                 }).start();
-
             }
         });
 

@@ -19,7 +19,7 @@ public class Level extends JFrame{
     public Level(int level1)
     {
         setLevel(level1);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);//固定大小
         //创建面板
@@ -100,18 +100,25 @@ public class Level extends JFrame{
         //添加再玩一次和玩下一模式的按钮
         JButton playAgain=new JButton("Play Again");
         JButton playNextMode=new JButton("Play Next Model");
+        JButton BackHome=new JButton("Back to Home");
         playAgain.setBounds(800,60,140,30);
         playNextMode.setBounds(800,100,140,30);
+        BackHome.setBounds(800,140,140,30);
         panel.add(playAgain);
         panel.add(playNextMode);
+        panel.add(BackHome);
         if(pass==0)//未通关
         {
+            playNextMode.setVisible(false);
             result.setText("You Lose!");
             result.setForeground(Color.black);
             panel.repaint();
         }
         else  if(pass==1)//通关
         {
+            if(level==3)
+                playNextMode.setVisible(false);
+            else playNextMode.setVisible(true);
             result.setText("You Win!");
             result.setForeground(Color.black);
             panel.repaint();
@@ -129,13 +136,10 @@ public class Level extends JFrame{
                 panel.repaint();
             }
         }
-
         playAgain.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                int level=getLevel();
-                System.out.println(level);
                playGame(getLevel());
             }
         });
@@ -144,23 +148,17 @@ public class Level extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 int level=getLevel();
-                System.out.println(level);
-                if(level<3)
                 playGame(++level);
-                else
-                {
-                    JLabel NoMore=new JLabel();
-                    NoMore.setBounds(380,50,250,40);
-                    NoMore.setFont(new Font("Times New Roman",Font.BOLD,20));
-                    NoMore.setForeground(Color.black);
-                    NoMore.setVisible(true);
-                    panel.add(NoMore);
-                    NoMore.setText("There is no more for you!!!");
-                    NoMore.setForeground(Color.black);
-                    NoMore.repaint();
-                }
             }
         });
+        BackHome.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+        //        throw back;
+            }
+        });
+
     }
     public void AddMousePressHandle(){
             super.addMouseListener(new MouseListener() {
@@ -210,14 +208,14 @@ public class Level extends JFrame{
     {
         level=level1;
     }
-    public void playGame(int level1)
+    public void playGame(int level)
     {
         this.clearPressTime();
         this.dispose();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Level newFrame = new Level(level1);
+                Level newFrame = new Level(level);
             }
         }).start();
     }
