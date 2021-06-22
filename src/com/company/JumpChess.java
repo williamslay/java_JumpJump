@@ -58,7 +58,7 @@ public class JumpChess extends JLabel
         {
             setLocation((int)(initialX + (Vx*actionTime)/Multiplayer),
                     (int)(initialY - (Vy*actionTime+0.5*Ay*actionTime*actionTime)/Multiplayer));
-            System.out.println("position:("+super.getX()+","+super.getY()+")");
+            //System.out.println("position:("+super.getX()+","+super.getY()+")");
             //System.out.println("speed:("+Vx+","+Vy+Vy*actionTime+")");
 
             try
