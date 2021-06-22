@@ -11,7 +11,42 @@ public class Plat extends JLabel
     public Plat()
     {
         setBounds(0, 200, 70, 20);
-        setBackground(new Color(0, 0, 0));
+        //让颜色五颜六色起来！
+        switch((int)(Math.random()*10))
+        {
+            case 1://道奇蓝
+                setBackground(new Color(30,144,255));
+                break;
+            case 2://淡蓝色
+                setBackground(new Color(135,206,250));
+                break;
+            case 3://深紫罗兰色
+                setBackground(new Color(148,0,211));
+                break;
+            case 4://猩红
+                setBackground(new Color(220,20,60));
+                break;
+            case 5://靛青
+                setBackground(new Color(75,0,130));
+                break;
+            case 6://水鸭色
+                setBackground(new Color(0,128,128));
+                break;
+            case 7://海洋绿
+                setBackground(new Color(46,139,87));
+                break;
+            case 8://金
+                setBackground(new Color(255,215,0));
+                break;
+            case 9://橙色
+                setBackground(new Color(255,165,0));
+                break;
+            case 10://巧克力
+                setBackground(new Color(210,105,30));
+                break;
+            default://耐火砖（默认）
+                setBackground(new Color(178,34,34));
+        }
         setOpaque(true);
         setVisible(true);
     }
@@ -19,7 +54,42 @@ public class Plat extends JLabel
     public Plat(int x1, int y1, int length1, int height1)
     {
         setBounds(x1, y1, length1, height1);
-        setBackground(new Color(0, 0, 0));
+        //让颜色五颜六色起来！
+        switch((int)(Math.random()*10))
+        {
+            case 1://道奇蓝
+                setBackground(new Color(30,144,255));
+                break;
+            case 2://淡蓝色
+                setBackground(new Color(135,206,250));
+                break;
+            case 3://深紫罗兰色
+                setBackground(new Color(148,0,211));
+                break;
+            case 4://猩红
+                setBackground(new Color(220,20,60));
+                break;
+            case 5://靛青
+                setBackground(new Color(75,0,130));
+                break;
+            case 6://水鸭色
+                setBackground(new Color(0,128,128));
+                break;
+            case 7://海洋绿
+                setBackground(new Color(46,139,87));
+                break;
+            case 8://金
+                setBackground(new Color(255,215,0));
+                break;
+            case 9://橙色
+                setBackground(new Color(255,165,0));
+                break;
+            case 10://巧克力
+                setBackground(new Color(210,105,30));
+                break;
+            default://耐火砖（默认）
+                setBackground(new Color(178,34,34));
+        }
         setOpaque(true);
         setVisible(true);
     }
@@ -36,35 +106,52 @@ public class Plat extends JLabel
     }
 
     /**
-     * 随机生成踏板
+     * 随机生成踏板(指两个距离）
      */
     public void Random()
     {
-        //首先我们先获取一下
+        //首先我们先获取一下现有踏板的大小
         double height = this.getHeight();
         double width = this.getWidth();
         do
         {
-            double y = Math.random();
-            if (y > 0.5)
-            {
-                this.yDistance = height + Math.random() * 30;
-            } else
-            {
-                this.yDistance = -1 * (height + Math.random() * 30);
-            }
-        } while (this.getY() + this.yDistance > 400 || this.getY() + this.yDistance < 70);
-        if (Math.abs(this.yDistance) > 50)
-        {
-            this.xDistance = 1.5 * Math.abs(this.yDistance);
-            if (this.getX() + this.xDistance + 2 * width > 1000)
-                this.xDistance = 1000 - this.getX() - width;
-        } else
-        {
-            this.xDistance = width + 30 + Math.random() * (170 - width);
-            if (this.getX() + this.xDistance + 2 * width > 1000)
-                this.xDistance = 1000 - this.getX() - width;
-        }
+            //double y = Math.random();
+            this.yDistance=(Math.random()-0.5)*50;
+//            if (y > 0.5)
+//            {
+//                this.yDistance = height + Math.random() * 20;
+//            } else
+//            {
+//                this.yDistance = -1 * (height + Math.random() * 20);
+//            }
+        } while (this.getY() +height+ this.yDistance > 350 || this.getY() + this.yDistance < 120);//保证踏板y轴的生成范围在120-350之间
+        //在确定了y轴偏移量之后，根据跳跃函数确定x轴偏移量，因为跳跃函数是由鼠标按压时间确定的，在这里我们给出一个范围。
+        //根据y轴偏移量计算时间单位
+        int Multiplayer=50;
+        int MouseTimeMin=200;
+        int MouseTimeMax=600;
+        double Ay=-0.2;
+        double VxMin=15+MouseTimeMin*0.02;
+        double VxMax=15+MouseTimeMax*0.02;
+        double VyMin=10+MouseTimeMin*0.06;
+        double VyMax=10+MouseTimeMax*0.06;
+        double YtMin=VyMin/Math.abs(Ay)+Math.sqrt(2*Ay*this.yDistance+VyMin*VyMin);
+        double YtMax=VyMax/Math.abs(Ay)+Math.sqrt(2*Ay*this.yDistance+VyMax*VyMax);
+        double YtAve=(YtMin+YtMax)/2;
+        int platRangeleft=(int)(VxMin*YtMin/Multiplayer);
+        int platRangeRight=(int)(VxMax*YtMax/Multiplayer);
+        do{
+            this.xDistance=platRangeleft+Math.random()*(platRangeRight*1.2-platRangeleft);
+        }while(this.xDistance+width>=300||this.xDistance<=width+50);//距离最长不超过200,最低不少于50
+//        if (Math.abs(this.yDistance) > 50)
+//        {
+//            this.xDistance = 1.5 * Math.abs(this.yDistance);
+//        } else
+//        {
+//            this.xDistance = width + 30 + Math.random() * (170 - width);
+//        }
+        if (this.getX()+width + 300  > 1000)//考虑最后一个踏板
+            this.xDistance = 1000 - this.getX() - width;
     }
 
     public void Asign(Plat plat2)//将当前plat变量赋给另一个plat变量
@@ -72,8 +159,7 @@ public class Plat extends JLabel
         plat2.setLocation(this.getX(), this.getY());
     }
 
-    public int Judge(int
-                             chessX1, int chessWidth, int chessY1, int chessHeight)//判断碰撞函数
+    public int Judge(int chessX1, int chessWidth, int chessY1, int chessHeight)//判断碰撞函数
     {
         int platX1 = this.getX();
         int platY1 = this.getY();

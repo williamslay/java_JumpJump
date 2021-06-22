@@ -62,7 +62,7 @@ public class JumpChess extends JLabel
         {
             setLocation((int)(initialX + (Vx*actionTime)/Multiplayer),
                     (int)(initialY - (Vy*actionTime+0.5*Ay*actionTime*actionTime)/Multiplayer));
-            System.out.println("position:("+super.getX()+","+super.getY()+")");
+            //System.out.println("position:("+super.getX()+","+super.getY()+")");
             //System.out.println("speed:("+Vx+","+Vy+Vy*actionTime+")");
 
             try
@@ -117,7 +117,7 @@ public class JumpChess extends JLabel
                     } while (this.getX() + this.getWidth() >= plat.getX());
                     do
                     {
-                        setLocation(super.getX(),super.getY()+1);
+                        setLocation(super.getX(),super.getY()+2);
                         try
                         {
                             sleep(1);
@@ -129,7 +129,8 @@ public class JumpChess extends JLabel
                 }else{
                     do
                     {
-                        setLocation(super.getX() + 1, super.getY() + 1);
+                        setLocation((int)(initialX + (Vx*actionTime)/Multiplayer),
+                                (int)(initialY - (Vy*actionTime+0.5*Ay*actionTime*actionTime)/Multiplayer));
                         try
                         {
                             sleep(1);
@@ -137,11 +138,11 @@ public class JumpChess extends JLabel
                         {
                             e.printStackTrace();
                         }
+                        actionTime+=1;
                     } while (this.getX()<= plat.getX()+plat.getWidth());
                     do
                     {
-                        setLocation((int)(initialX + (Vx*actionTime)/Multiplayer),
-                                (int)(initialY - (Vy*actionTime+0.5*Ay*actionTime*actionTime)/Multiplayer));
+                        setLocation(super.getX() , super.getY() + 2);
                         try
                         {
                             sleep(1);
