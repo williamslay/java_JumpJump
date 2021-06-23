@@ -22,7 +22,10 @@ public class Level extends JFrame{
     public static double start2p;
     public static double end2p;
     public static double pressTime2p;//按压时间
-    public static int End2p=0;
+    public static int End2p=0;//默认2p线程结束为0
+    public static int Press=0;//默认按下为1，松开为0
+    public static int Press1p=0;//默认按下为1，松开为0
+    public static int Press2p=0;//默认按下为1，松开为0
     //游戏关卡的设置
     private int level;//游戏关卡难度，1,2,3分别为简单，中等，困难
     private int pass;//本局游戏通关情况，0为未通关，1为通关
@@ -245,11 +248,31 @@ public class Level extends JFrame{
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            do{
+                                //按压动画
+                                if(Press1p==1)
+                                    break;
+                            }while(true);
+                        }
+                    }).start();
                     long TimeNow =System.currentTimeMillis();
                      start1p =(double)(TimeNow);
                 }
                 if(e.getKeyCode()==75)
                 {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            do{
+                                //按压动画
+                                if(Press2p==1)
+                                    break;
+                            }while(true);
+                        }
+                    }).start();
                     long TimeNow =System.currentTimeMillis();
                      start2p =(double)(TimeNow);
                 }
@@ -257,14 +280,15 @@ public class Level extends JFrame{
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
+                    Press1p=1;
                     long TimeNow =System.currentTimeMillis();
                      end1p =(double)(TimeNow);
                     pressTime1p=end1p-start1p;
                     System.out.println("1p:"+pressTime1p);
-
                 }
                 if(e.getKeyCode()==75)
                 {
+                    Press2p=1;
                     long TimeNow =System.currentTimeMillis();
                      end2p =(double)(TimeNow);
                     pressTime2p=end2p-start2p;
@@ -486,8 +510,19 @@ public class Level extends JFrame{
             super.addMouseListener(new MouseListener() {
                 public void mousePressed(MouseEvent e) {
                     start = Instant.now();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            do{
+                                //按压动画
+                                if(Press==1)
+                                    break;
+                            }while(true);
+                        }
+                    }).start();
                 }
                 public void mouseReleased(MouseEvent e) {
+                    Press=1;
                     end = Instant.now();
                     pressTime = Duration.between(start,end).toMillis();
                     System.out.println(pressTime);
@@ -502,12 +537,23 @@ public class Level extends JFrame{
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            do{
+                                //按压动画
+                                if(Press==1)
+                                    break;
+                            }while(true);
+                        }
+                    }).start();
                     start = Instant.now();
                 }
             }
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
+                    Press=1;
                     end = Instant.now();
                     pressTime = Duration.between(start,end).toMillis();
                 }

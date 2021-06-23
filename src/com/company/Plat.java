@@ -110,6 +110,7 @@ public class Plat extends JLabel
                 }while(getY()>=y1);
             }
         }).start();
+        setLocation(x1,y1);
         setOpaque(true);
         setVisible(true);
     }
