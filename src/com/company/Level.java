@@ -30,20 +30,22 @@ public class Level extends JFrame{
         //创建标签
         Image img1 = null;
         try {
-            img1 = ImageIO.read(new File("src/images/chess.jpeg"));
+            img1 = ImageIO.read(new File("src/images/chess.png"));
         } catch (IOException e) {
             System.out.println("not find img!!!");
         }
         ImageIcon chess = new ImageIcon(img1);
         //    chess=scaleImage(chess,50,50);
+        //生成一个棋子对象
         JumpChess jlChess = new JumpChess(chess);
         setBounds(350, 300, 1000, 400);
         panel.setBounds(0, 0, 1000, 400);
         panel.add(jlChess);
+        //绘制第一个踏板
         Plat plat1=new Plat();
         panel.add(plat1);
         plat1.Random();
-        Plat plat2=new Plat( (int)(plat1.getX()+plat1.xDistance),(int)(plat1.getY()- plat1.yDistance),plat1.getWidth(),plat1.getHeight());
+        Plat plat2=new Plat((int)(plat1.getX()+plat1.xDistance),(int)(plat1.getY()- plat1.yDistance),plat1.getWidth(),plat1.getHeight());
         panel.add(plat2);
         add(panel);
         AddMousePressHandle();
@@ -64,14 +66,17 @@ public class Level extends JFrame{
             //System.out.println(frame.getTime());
             double TimeNow=gameTime.recordTime();
             gameTime.setGameTime(TimeNow-startTime);
+            //获取当前时间
             if(gameTime.getGameTime()==gameTime.getLimitTime(this.level))//如果超时，则游戏失败
             {
                 pass=0;
                 break;
             }
+            //显示时间
             gameTime.timeChange(this);
             panel.repaint();
             if(getPressTime()>0) {//如果没有超时
+                //起跳！
                 jlChess.jump(getPressTime(),thisOne);
                 if(jlChess.getState()==2)
                 {
@@ -85,6 +90,7 @@ public class Level extends JFrame{
                     pass=1;
                     break;
                 }
+                //生成新的平台
                 Plat nextOne= new Plat( (int)(thisOne.getX()+thisOne.xDistance),(int)(thisOne.getY()- thisOne.yDistance),thisOne.getWidth(),thisOne.getHeight());
                 nextOne.Asign(thisOne);
                 panel.add(nextOne);
