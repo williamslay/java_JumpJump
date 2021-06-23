@@ -3,6 +3,8 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
+import static java.lang.Thread.sleep;
+
 public class Plat extends JLabel
 {
     //下一个平台的距离距离原有踏板的距离
@@ -10,7 +12,7 @@ public class Plat extends JLabel
 
     public Plat()
     {
-        setBounds(0, 200, 70, 20);
+        setBounds(0, 200, 70, 40);
         //让颜色五颜六色起来！
         switch((int)(Math.random()*10))
         {
@@ -53,7 +55,7 @@ public class Plat extends JLabel
 
     public Plat(int x1, int y1, int length1, int height1)
     {
-        setBounds(x1, y1, length1, height1);
+        setSize(length1,height1);
         //让颜色五颜六色起来！
         switch((int)(Math.random()*10))
         {
@@ -90,6 +92,24 @@ public class Plat extends JLabel
             default://耐火砖（默认）
                 setBackground(new Color(178,34,34));
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                do
+                {
+                    setLocation(getX(),getY()-2);
+                    try
+                    {
+                        sleep(5);
+                    } catch (InterruptedException e)
+                    {
+                        if(getY()>=y1)
+                            break;
+                    }
+                }while(getY()>=y1);
+            }
+        }).start();
+        setLocation(x1,y1);
         setOpaque(true);
         setVisible(true);
     }
