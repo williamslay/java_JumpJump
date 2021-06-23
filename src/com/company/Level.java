@@ -309,7 +309,7 @@ public class Level extends JFrame{
             public void run() {
                 End2p=0;
                 do {
-                    System.out.println("2p:"+getPressTime2p());
+                    //System.out.println("2p:"+getPressTime2p());
                     double TimeNow = gameTime2.recordTime();
                     gameTime2.setGameTime(TimeNow - startTime);
                     //获取当前时间
@@ -343,7 +343,6 @@ public class Level extends JFrame{
             }
             }).start();
         do{
-            //System.out.println(frame.getTime());
             double TimeNow=gameTime1.recordTime();
             gameTime1.setGameTime(TimeNow-startTime);
             //获取当前时间
