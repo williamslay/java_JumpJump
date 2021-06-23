@@ -21,9 +21,7 @@ public class TimeCounter extends JLabel
     }
     public TimeCounter()
     {
-
     }
-
      public double getLimitTime(int level)
      {
          return limitTime[level-1];

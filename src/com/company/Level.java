@@ -248,51 +248,15 @@ public class Level extends JFrame{
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            do{
-                                //按压动画
-                                if(Press1p==1)
-                                    break;
-                            }while(true);
-                        }
-                    }).start();
-                    long TimeNow =System.currentTimeMillis();
-                     start1p =(double)(TimeNow);
-                }
-                if(e.getKeyCode()==75)
-                {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            do{
-                                //按压动画
-                                if(Press2p==1)
-                                    break;
-                            }while(true);
-                        }
-                    }).start();
-                    long TimeNow =System.currentTimeMillis();
-                     start2p =(double)(TimeNow);
+                    start1p =(double)(System.currentTimeMillis());
                 }
             }
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
-                    Press1p=1;
-                    long TimeNow =System.currentTimeMillis();
-                     end1p =(double)(TimeNow);
+                    end1p =(double)(System.currentTimeMillis());
                     pressTime1p=end1p-start1p;
                     System.out.println("1p:"+pressTime1p);
-                }
-                if(e.getKeyCode()==75)
-                {
-                    Press2p=1;
-                    long TimeNow =System.currentTimeMillis();
-                     end2p =(double)(TimeNow);
-                    pressTime2p=end2p-start2p;
-                    System.out.println("2p:"+pressTime2p);
                 }
             }
             public void keyTyped(KeyEvent e) {}
@@ -308,8 +272,24 @@ public class Level extends JFrame{
             @Override
             public void run() {
                 End2p=0;
+                addKeyListener(new KeyListener(){
+                    public void keyPressed(KeyEvent e) {
+                        if(e.getKeyCode()==75)
+                        {
+                            start2p =(double)(System.currentTimeMillis());
+                        }
+                    }
+                    public void keyReleased(KeyEvent e) {
+                        if(e.getKeyCode()==75)
+                        {
+                            end2p =(double)(System.currentTimeMillis());
+                            pressTime2p=end2p-start2p;
+                            System.out.println("2p:"+pressTime2p);
+                        }
+                    }
+                    public void keyTyped(KeyEvent e) {}
+                });
                 do {
-                    //System.out.println("2p:"+getPressTime2p());
                     double TimeNow = gameTime2.recordTime();
                     gameTime2.setGameTime(TimeNow - startTime);
                     //获取当前时间
@@ -509,19 +489,8 @@ public class Level extends JFrame{
             super.addMouseListener(new MouseListener() {
                 public void mousePressed(MouseEvent e) {
                     start = Instant.now();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            do{
-                                //按压动画
-                                if(Press==1)
-                                    break;
-                            }while(true);
-                        }
-                    }).start();
                 }
                 public void mouseReleased(MouseEvent e) {
-                    Press=1;
                     end = Instant.now();
                     pressTime = Duration.between(start,end).toMillis();
                     System.out.println(pressTime);
@@ -536,23 +505,12 @@ public class Level extends JFrame{
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            do{
-                                //按压动画
-                                if(Press==1)
-                                    break;
-                            }while(true);
-                        }
-                    }).start();
                     start = Instant.now();
                 }
             }
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
-                    Press=1;
                     end = Instant.now();
                     pressTime = Duration.between(start,end).toMillis();
                 }
