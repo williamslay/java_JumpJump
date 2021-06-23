@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 import static com.company.Main.*;
+import static java.lang.Thread.sleep;
 
 public class Level extends JFrame{
     public static Instant start;
