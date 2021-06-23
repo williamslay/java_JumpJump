@@ -3,7 +3,6 @@ package com.company;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
 import javax.swing.*;
 
 public class Main {
@@ -16,25 +15,8 @@ public class Main {
     {
         minTime[level-1]=time;
     }
-    public static ImageIcon scaleImage(ImageIcon icon, int w, int h) //该函数用于按照比例拉伸ImageIcon
+    public static void getToHome()
     {
-        int nw = icon.getIconWidth();
-        int nh = icon.getIconHeight();
-
-        if (nw > w) {
-            nw = w;
-            nh = (nw * icon.getIconHeight()) / icon.getIconWidth();
-        }
-
-        if (nh > h) {
-            nh = h;
-            nw = (icon.getIconWidth() * nh) / icon.getIconHeight();
-        }
-        icon = new ImageIcon(icon.getImage().getScaledInstance(nw, nh, Image.SCALE_SMOOTH));
-        return icon;
-    }
-    public static void main(String[] args) {
-        //创建窗口
         JFrame homePage=new JFrame();
         homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         homePage.setVisible(true);
@@ -59,7 +41,6 @@ public class Main {
         play2P.setBounds(130,200,140,30);
         panel.add(play1P);
         panel.add(play2P);
-        //WindowListener
         play1P.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -73,6 +54,40 @@ public class Main {
                 }).start();
             }
         });
+        play2P.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                homePage.setVisible(false);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Level frame = new Level(1);
+                    }
+                }).start();
+            }
+        });
+    }
+    public static ImageIcon scaleImage(ImageIcon icon, int w, int h) //该函数用于按照比例拉伸ImageIcon
+    {
+        int nw = icon.getIconWidth();
+        int nh = icon.getIconHeight();
 
+        if (nw > w) {
+            nw = w;
+            nh = (nw * icon.getIconHeight()) / icon.getIconWidth();
+        }
+
+        if (nh > h) {
+            nh = h;
+            nw = (icon.getIconWidth() * nh) / icon.getIconHeight();
+        }
+        icon = new ImageIcon(icon.getImage().getScaledInstance(nw, nh, Image.SCALE_SMOOTH));
+        return icon;
+    }
+    public static void main(String[] args) {
+        //创建窗口
+        getToHome();
+        //WindowListener
     }
 }

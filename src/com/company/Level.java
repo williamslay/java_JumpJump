@@ -1,4 +1,5 @@
 package com.company;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+
+import static com.company.Main.*;
 
 public class Level extends JFrame{
     public static Instant start;
@@ -128,9 +131,9 @@ public class Level extends JFrame{
             result.setText("You Win!");
             result.setForeground(Color.black);
             panel.repaint();
-            if(gameTime.getGameTime()<=Main.getMinTime(level))//刷新纪录
+            if(gameTime.getGameTime()<= getMinTime(level))//刷新纪录
             {
-                Main.setMinTime(level,gameTime.getGameTime());
+                setMinTime(level,gameTime.getGameTime());
                 JLabel congratulation=new JLabel();
                 congratulation.setBounds(275,50,500,40);
                 congratulation.setFont(new Font("Times New Roman",Font.BOLD,20));
@@ -161,7 +164,7 @@ public class Level extends JFrame{
         {
             public void actionPerformed(ActionEvent e)
             {
-        //        throw back;
+                backToHome();
             }
         });
 
@@ -222,6 +225,17 @@ public class Level extends JFrame{
             @Override
             public void run() {
                 Level newFrame = new Level(level);
+            }
+        }).start();
+    }
+    public void backToHome()
+    {
+        this.clearPressTime();
+        this.dispose();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getToHome();
             }
         }).start();
     }
