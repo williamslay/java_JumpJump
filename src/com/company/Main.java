@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Main {
+public class Main {//
     private static double[] minTime = new double[]{30.00,25.00,20.00};//关卡难度最短时间
     public static double getMinTime(int level)
     {
