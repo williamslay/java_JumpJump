@@ -87,6 +87,6 @@ public class Main {
     }
     public static void main(String[] args) {
         //创建窗口
-        getToHome();
+        getToHome();//
     }
 }
