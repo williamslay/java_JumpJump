@@ -245,19 +245,19 @@ public class Level extends JFrame{
                 if(e.getKeyCode()==83)
                 {
                     long TimeNow =System.currentTimeMillis();
-                     start1p =(double)(TimeNow/1000.0);
+                     start1p =(double)(TimeNow);
                 }
                 if(e.getKeyCode()==75)
                 {
                     long TimeNow =System.currentTimeMillis();
-                     start2p =(double)(TimeNow/1000.0);
+                     start2p =(double)(TimeNow);
                 }
             }
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
                     long TimeNow =System.currentTimeMillis();
-                     end1p =(double)(TimeNow/1000.0);
+                     end1p =(double)(TimeNow);
                     pressTime1p=end1p-start1p;
                     System.out.println("1p:"+pressTime1p);
 
@@ -265,7 +265,7 @@ public class Level extends JFrame{
                 if(e.getKeyCode()==75)
                 {
                     long TimeNow =System.currentTimeMillis();
-                     end2p =(double)(TimeNow/1000.0);
+                     end2p =(double)(TimeNow);
                     pressTime2p=end2p-start2p;
                     System.out.println("2p:"+pressTime2p);
                 }
@@ -353,8 +353,11 @@ public class Level extends JFrame{
             }
         }while(true);
         do {
+            double TimeNow=gameTime1.recordTime();
+            gameTime1.setGameTime(TimeNow-startTime);
+            gameTime1.timeChange(this);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -460,23 +463,23 @@ public class Level extends JFrame{
                         panel1.repaint();
                     }
                 }
-            playAgain.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    play2pGame(getLevel());
-                }
-            });
-            playNextMode.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    int level=getLevel();
-                    play2pGame(++level);
-                }
-            });
-            BackHome.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    backToHome();
-                }
-            });
         }
+        playAgain.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                play2pGame(getLevel());
+            }
+        });
+        playNextMode.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int level=getLevel();
+                play2pGame(++level);
+            }
+        });
+        BackHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                backToHome();
+            }
+        });
     }
     public void AddMousePressHandle(){
             super.addMouseListener(new MouseListener() {
