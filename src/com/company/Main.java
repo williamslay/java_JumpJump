@@ -62,7 +62,7 @@ public class Main {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Level frame = new Level(1);
+                        Level frame = new Level(1,2);
                     }
                 }).start();
             }
@@ -88,6 +88,5 @@ public class Main {
     public static void main(String[] args) {
         //创建窗口
         getToHome();
-        //WindowListener
     }
 }

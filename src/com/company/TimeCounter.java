@@ -19,6 +19,10 @@ public class TimeCounter extends JLabel
         setForeground(Color.black);
         setVisible(true);
     }
+    public TimeCounter()
+    {
+
+    }
 
      public double getLimitTime(int level)
      {
@@ -28,10 +32,10 @@ public class TimeCounter extends JLabel
     {
         return gameTime;
     }
-    public void setLimitTime(int level,double time)
+    /*public void setLimitTime(int level,double time)
     {
         this.limitTime[level-1]=time;
-    }
+    }*/
     public void setGameTime(double time)
     {
         this.gameTime=time;
