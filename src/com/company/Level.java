@@ -16,11 +16,11 @@ public class Level extends JFrame{
     public static Instant start;
     public static Instant end;
     public static double pressTime;//按压时间
-    public static double start1p;
-    public static double end1p;
+    public static Long start1p;
+    public static Long end1p;
     public static double pressTime1p;//按压时间
-    public static double start2p;
-    public static double end2p;
+    public static Long start2p;
+    public static Long end2p;
     public static double pressTime2p;//按压时间
     public static int End2p=0;//默认2p线程结束为0
     public static int Press=0;//默认按下为1，松开为0
@@ -83,7 +83,7 @@ public class Level extends JFrame{
             double TimeNow=gameTime.recordTime();
             gameTime.setGameTime(TimeNow-startTime);
             //获取当前时间
-            if(gameTime.getGameTime()==gameTime.getLimitTime(this.level))//如果超时，则游戏失败
+            if(gameTime.getGameTime()==Main.getLimitTime(this.level))//如果超时，则游戏失败
             {
                 pass=0;
                 break;
@@ -248,15 +248,25 @@ public class Level extends JFrame{
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
-                    start1p =(double)(System.currentTimeMillis());
+                    start1p =(Long)(System.currentTimeMillis());
+                }
+                if(e.getKeyCode()==75)
+                {
+                    start2p =(Long)(System.currentTimeMillis());
                 }
             }
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
-                    end1p =(double)(System.currentTimeMillis());
-                    pressTime1p=end1p-start1p;
+                    end1p =(Long)(System.currentTimeMillis());
+                    pressTime1p=(double)(end1p-start1p);
                     System.out.println("1p:"+pressTime1p);
+                }
+                if(e.getKeyCode()==75)
+                {
+                    end2p =(Long)(System.currentTimeMillis());
+                    pressTime2p=(double)(end2p-start2p);
+                    System.out.println("2p:"+pressTime2p);
                 }
             }
             public void keyTyped(KeyEvent e) {}
@@ -272,28 +282,11 @@ public class Level extends JFrame{
             @Override
             public void run() {
                 End2p=0;
-                addKeyListener(new KeyListener(){
-                    public void keyPressed(KeyEvent e) {
-                        if(e.getKeyCode()==75)
-                        {
-                            start2p =(double)(System.currentTimeMillis());
-                        }
-                    }
-                    public void keyReleased(KeyEvent e) {
-                        if(e.getKeyCode()==75)
-                        {
-                            end2p =(double)(System.currentTimeMillis());
-                            pressTime2p=end2p-start2p;
-                            System.out.println("2p:"+pressTime2p);
-                        }
-                    }
-                    public void keyTyped(KeyEvent e) {}
-                });
                 do {
                     double TimeNow = gameTime2.recordTime();
                     gameTime2.setGameTime(TimeNow - startTime);
                     //获取当前时间
-                    if (gameTime2.getGameTime() == gameTime2.getLimitTime(level))//如果超时，则游戏失败
+                    if (gameTime2.getGameTime() == Main.getLimitTime(level))//如果超时，则游戏失败
                     {
                         pass2p = 0;
                         break;
@@ -326,7 +319,7 @@ public class Level extends JFrame{
             double TimeNow=gameTime1.recordTime();
             gameTime1.setGameTime(TimeNow-startTime);
             //获取当前时间
-            if(gameTime1.getGameTime()==gameTime1.getLimitTime(this.level))//如果超时，则游戏失败
+            if(gameTime1.getGameTime()==Main.getLimitTime(this.level))//如果超时，则游戏失败
             {
                 pass1p=0;
                 break;
@@ -544,14 +537,14 @@ public class Level extends JFrame{
     {
         level=level1;
     }
-    public void playGame(int level)
+    public void playGame(int level1)
     {
         this.clearPressTime();
         this.dispose();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Level newFrame = new Level(level);
+                Level newFrame = new Level(level1);
             }
         }).start();
     }

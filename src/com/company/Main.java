@@ -7,9 +7,14 @@ import javax.swing.*;
 
 public class Main {//
     private static double[] minTime = new double[]{30.00,25.00,20.00};//关卡难度最短时间
+    private static double[] limitTime = new double[]{30.00,25.00,20.00};//关卡限制时间
     public static double getMinTime(int level)
     {
         return minTime[level-1];
+    }
+    public static double getLimitTime(int level)
+    {
+        return limitTime[level-1];
     }
     public static void setMinTime(int level,double time)
     {
