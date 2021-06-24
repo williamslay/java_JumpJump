@@ -16,8 +16,8 @@ public class Level extends JFrame{
     public static Instant start;
     public static Instant end;
     public static double pressTime;//按压时间
-    public static Long start1p;
-    public static Long end1p;
+    public static Instant start1p;
+    public static Instant end1p;
     public static double pressTime1p;//按压时间
     public static Long start2p;
     public static Long end2p;
@@ -26,6 +26,7 @@ public class Level extends JFrame{
     public static int Press=0;//默认按下为1，松开为0
     public static int Press1p=0;//默认按下为1，松开为0
     public static int Press2p=0;//默认按下为1，松开为0
+    public static int  keyend=0;
     //游戏关卡的设置
     private int level;//游戏关卡难度，1,2,3分别为简单，中等，困难
     private int pass;//本局游戏通关情况，0为未通关，1为通关
@@ -243,7 +244,19 @@ public class Level extends JFrame{
         panel.repaint();
         repaint();
         setVisible(true);
-
+        /*addMouseListener(new MouseListener() {
+            public void mousePressed(MouseEvent e) {
+                start1p = Instant.now();
+            }
+            public void mouseReleased(MouseEvent e) {
+                end1p = Instant.now();
+                pressTime1p = Duration.between(start1p,end1p).toMillis();
+                System.out.println(pressTime1p);
+            }
+            public void mouseExited(MouseEvent e) {}
+            public void mouseEntered(MouseEvent e) {}
+            public void mouseClicked(MouseEvent e) {}
+        });*/
         addKeyListener(new KeyListener(){
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==83)
@@ -252,19 +265,23 @@ public class Level extends JFrame{
                 }
                 if(e.getKeyCode()==75)
                 {
+                    keyend=1;
                     start2p =(Long)(System.currentTimeMillis());
+                    System.out.println("start2p:"+start2p);
                 }
             }
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==83)
                 {
                     end1p =(Long)(System.currentTimeMillis());
+                    System.out.println("end1p:" + end1p);
                     pressTime1p=(double)(end1p-start1p);
                     System.out.println("1p:"+pressTime1p);
                 }
                 if(e.getKeyCode()==75)
                 {
                     end2p =(Long)(System.currentTimeMillis());
+                    System.out.println("end2p:" + end2p);
                     pressTime2p=(double)(end2p-start2p);
                     System.out.println("2p:"+pressTime2p);
                 }
@@ -283,6 +300,7 @@ public class Level extends JFrame{
             public void run() {
                 End2p=0;
                 do {
+                    System.out.println(getPressTime2p());
                     double TimeNow = gameTime2.recordTime();
                     gameTime2.setGameTime(TimeNow - startTime);
                     //获取当前时间
