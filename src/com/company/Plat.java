@@ -55,7 +55,9 @@ public class Plat extends JLabel
 
     public Plat(int x1, int y1, int length1, int height1)
     {
-        setBounds(x1,y1,length1,height1);
+    //    setBounds(x1,y1,length1,height1);
+        setSize(length1,height1);
+        setLocation(x1,420);
         //让颜色五颜六色起来！
         switch((int)(Math.random()*10))
         {
@@ -94,17 +96,24 @@ public class Plat extends JLabel
         }
         setOpaque(true);
         setVisible(true);
-    }
-
-    public Plat(Icon image)
-    {
-        setIcon(image);
-        setHorizontalAlignment(SwingConstants.LEFT);
-        setVerticalAlignment(SwingConstants.TOP);
-        updateUI();
-        setAlignmentX(LEFT_ALIGNMENT);
-        setBounds(0, 200, 20, 70);
-        setVisible(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                do
+                {
+                    setLocation(getX(),getY()-2);
+                    try
+                    {
+                        sleep(5);
+                    } catch (InterruptedException e)
+                    {
+                        if(getY()>=y1)
+                            break;
+                    }
+                }while(getY()>=y1);
+            }
+        }).start();
+        setLocation(x1,y1);
     }
 
     /**

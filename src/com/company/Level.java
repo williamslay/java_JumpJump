@@ -16,17 +16,14 @@ public class Level extends JFrame{
     public static Instant start;
     public static Instant end;
     public static double pressTime;//按压时间
-    public static Instant start1p;
-    public static Instant end1p;
+    public static double start1p;
+    public static double end1p;
     public static double pressTime1p;//按压时间
-    public static Long start2p;
-    public static Long end2p;
+    public static double start2p;
+    public static double end2p;
     public static double pressTime2p;//按压时间
     public static int End2p=0;//默认2p线程结束为0
-    public static int Press=0;//默认按下为1，松开为0
-    public static int Press1p=0;//默认按下为1，松开为0
-    public static int Press2p=0;//默认按下为1，松开为0
-    public static int  keyend=0;
+    public static int  keyEnd=0;
     //游戏关卡的设置
     private int level;//游戏关卡难度，1,2,3分别为简单，中等，困难
     private int pass;//本局游戏通关情况，0为未通关，1为通关
@@ -259,18 +256,24 @@ public class Level extends JFrame{
         });*/
         addKeyListener(new KeyListener(){
             public void keyPressed(KeyEvent e) {
+                if(keyEnd==1)
+                {
+                    return ;
+                }
                 if(e.getKeyCode()==83)
                 {
                     start1p =(Long)(System.currentTimeMillis());
+                    keyEnd=1;
                 }
                 if(e.getKeyCode()==75)
                 {
-                    keyend=1;
                     start2p =(Long)(System.currentTimeMillis());
                     System.out.println("start2p:"+start2p);
+                    keyEnd=1;
                 }
             }
             public void keyReleased(KeyEvent e) {
+                keyEnd=0;
                 if(e.getKeyCode()==83)
                 {
                     end1p =(Long)(System.currentTimeMillis());
@@ -514,12 +517,18 @@ public class Level extends JFrame{
     public void AddKeyPressHandle(){
         super.addKeyListener(new KeyListener(){
             public void keyPressed(KeyEvent e) {
+                if(keyEnd==1)
+                {
+                    return ;
+                }
                 if(e.getKeyCode()==83)
                 {
                     start = Instant.now();
+                    keyEnd=1;
                 }
             }
             public void keyReleased(KeyEvent e) {
+                keyEnd=0;
                 if(e.getKeyCode()==83)
                 {
                     end = Instant.now();
